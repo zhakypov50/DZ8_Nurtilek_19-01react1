@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function Children(props) {
+    return (
+        <form>
+            <h1 className="Children-title">
+                {props.title}
+            </h1>
+            <p className="Children-message">
+                {props.message}
+            </p>
+            {props.children}
+        </form>
+    );
 }
 
-export default App;
+class SignUpDialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSignUp = this.handleSignUp.bind(this);
+        this.state = {login: ''};
+    }
+
+    handleChange(e) {
+        this.setState({login: e.target.value});
+    }
+
+    handleSignUp() {
+        alert(`Welcome to concert, ${this.state.login}!`);
+    }
+
+    render() {
+        return (
+            <Children title="Ticket to The Weeknd concert"
+                    message="Email">
+                <input value={this.state.login}
+                       onChange={this.handleChange} />
+                <button onClick={this.handleSignUp}>
+                    Sign in!
+                </button>
+            </Children>
+        );
+    }
+
+}
+
+export default SignUpDialog;
